@@ -245,20 +245,83 @@ class LoopExercise {
     }
 }
 
+class OtherExercise {
+    fun cau1(km: Int): Double {
+        var money: Double = 0.0
+        for (i in 1..km) {
+            if (i == 1)
+                money += 15000
+            else if (i in 2..5)
+                money += 13500
+            else
+                money += 11000
+        }
+        if (km > 120)
+            money = money - money * 0.1
+        return money
+    }
+
+    fun cau2(dongia: Int, soluong: Int, ship: Boolean): Double {
+        var money: Double = 0.0
+        // ship =  true => co giao hang, false => khong giao hang
+        if (ship)
+            money = (dongia * soluong + 20000).toDouble()
+        else
+            money = (dongia * soluong).toDouble()
+
+        if (money > 100000)
+            money = money - money * 0.1
+        return money
+    }
+
+    fun cau3(value: Long, option: Boolean): Double {
+        // option = true => USD to VND, false => VND to USD
+        if (option) {
+            return (value * 27000).toDouble()
+        }
+        return value.toDouble() / 27000
+    }
+
+    fun cau4(N: Int): Int {
+        var k = 1
+        var sum = 1
+        for (i in 1..N) {
+            if (sum > N) {
+                k = i
+                break
+            }
+            sum += i
+        }
+        return k
+    }
+}
 
 fun main(args: Array<String>) {
-//    var stringExercise = StringExercise()
-//    println(stringExercise.getStringLength("nlhdung"))
-//    println(stringExercise.concateString("nlhdung", "123"))
-//    println(stringExercise.getUpperCase("nlhdung"))
-//    println(stringExercise.findAndReplace("Dai Hoc Khoa Hoc Tu Nhien", "hoc"))
-//    println(stringExercise.findAndRemove("nlhdungnlhdungnlhdungHonlhdungannlhdungg nlhdungHunlhdungu Giapnlhdungnlhdungnlhdungnlhdungnlhdungnlhdung", "nlhdung"))
-//    println(stringExercise.addHead("123"))
-//    println(stringExercise.addTail("Teacher: "))
-//    println(stringExercise.insertToPosition("Teacher of me", 8))
-//    println(stringExercise.calculateNumberOfElement("nlhdungnlhdungnlhdungHonlhdungannlhdungg nlhdungHunlhdungu Giapnlhdungnlhdungnlhdungnlhdungnlhdungnlhdung"))
-//    println(stringExercise.randomString("Hoang Huu Giap"))
+    println("======================== Bai tap String ========================")
+    var stringExercise = StringExercise()
+    print("Cau 1: Length of nlhdung = ")
+    println(stringExercise.getStringLength("nlhdung"))
+    print("Cau 2: ")
+    println(stringExercise.concateString("nlhdung", "123"))
+    print("Cau 3: ")
+    println(stringExercise.getUpperCase("nlhdung"))
+    print("Cau 4: ")
+    println(stringExercise.findAndReplace("Dai Hoc Khoa Hoc Tu Nhien", "hoc"))
+    print("Cau 5: ")
+    println(stringExercise.findAndRemove("nlhdungnlhdungnlhdungHonlhdungannlhdungg nlhdungHunlhdungu Giapnlhdungnlhdungnlhdungnlhdungnlhdungnlhdung", "nlhdung"))
+    print("Cau 6: ")
+    println(stringExercise.addHead("123"))
+    print("Cau 7: ")
+    println(stringExercise.addTail("Teacher: "))
+    print("Cau 8: ")
+    println(stringExercise.insertToPosition("Teacher of me", 8))
+    print("Cau 9: ")
+    println(stringExercise.calculateNumberOfElement("nlhdungnlhdungnlhdungHonlhdungannlhdungg nlhdungHunlhdungu Giapnlhdungnlhdungnlhdungnlhdungnlhdungnlhdung"))
+    print("Cau 10: ")
+    println(stringExercise.randomString("Hoang Huu Giap"))
+    println("======================================================================")
 
+    println("======================== Bai tap For va Array ========================")
     var loopExercise = LoopExercise()
     var array_1 = arrayOf(1, 2, 3, 4, 5)
     println("Cau 1: Truoc khi dao nguoc mang")
@@ -333,5 +396,23 @@ fun main(args: Array<String>) {
     println("So nho nhat = ${result_8.first.second}")
     println("So le lon nhat = ${result_8.second.first}")
     println("So nguyen to nhat = ${result_8.second.second}")
+    println("======================================================================")
 
+    println("======================== Bai tap khac ========================")
+    var otherExercise = OtherExercise()
+    var km = 130
+    print("Cau 1: So tien taxi cho ${km}km = ")
+    println(otherExercise.cau1(km))
+
+    print("Cau 2: Phi mua sach = ")
+    println(otherExercise.cau2(25000, 12, true))
+
+    print("Cau 3: 50USD to VND = ")
+    println(otherExercise.cau3(50, true))
+    print("Cau 3: 500000VND to USD = ")
+    println(otherExercise.cau3(500000, false))
+
+    print("Cau 4: Number N = 10 => k = ")
+    println(otherExercise.cau4(10))
+    println("======================================================================")
 }
