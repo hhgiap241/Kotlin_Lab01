@@ -1,5 +1,9 @@
 import java.util.*
+import java.util.function.DoubleBinaryOperator
 import kotlin.collections.ArrayList
+import kotlin.math.pow
+import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 
 /**
@@ -90,12 +94,13 @@ class LoopExercise {
         print("]")
         println()
     }
-    fun outputTuple(pair: Pair<Int, Int>){
+
+    fun outputTuple(pair: Pair<Int, Int>) {
         println("First: ${pair.first}")
         println("Second: ${pair.second}")
     }
 
-    fun reverseArray(array: Array<Int>): Array<Int> {
+    fun cau1(array: Array<Int>): Array<Int> {
         array.reverse();
         var result: Array<Int> = Array(array.size) { 0 }
         for (i in array.indices) {
@@ -104,8 +109,8 @@ class LoopExercise {
         return result
     }
 
-    fun gcdHandle(n: Int): Pair<Int, Int> {
-        var array =  ArrayList<Int>()
+    fun cau2(n: Int): Pair<Int, Int> {
+        var array = ArrayList<Int>()
         var sum: Int = 0
         for (i in 1..n) {
             if (n % i == 0) {
@@ -116,11 +121,12 @@ class LoopExercise {
         var result: Pair<Int, Int> = Pair(array.size, sum)
         return result
     }
-    fun cau3(n: Int):Pair<Int, Int>{
+
+    fun cau3(n: Int): Pair<Int, Int> {
         var m = n
         var count: Int = 0
         var sum: Int = 0
-        while (m > 0){
+        while (m > 0) {
             var number = m % 10
             sum += number
             count++
@@ -130,7 +136,115 @@ class LoopExercise {
         return result
     }
 
+    fun cau4(n: Int): Pair<Int, Int> {
+        var m = n
+        var odd: Int = 0
+        var even: Int = 0
+        while (m > 0) {
+            var number = m % 10
+            if (number % 2 == 0)
+                even++
+            else
+                odd++
+            m /= 10
+        }
+        var result: Pair<Int, Int> = Pair(odd, even)
+        return result
+    }
+
+    fun cau5(n: Int): Double {
+        var result: Double = 0.0
+        for (i in 1..n) {
+            result += i.toDouble().pow(2)
+        }
+        return result
+    }
+
+    fun cau6(value: String): Array<String> {
+        var array = Array<String>(100) { value }
+        for (i in array.indices) {
+            array[i] += "-" + (i + 1)
+        }
+        return array
+    }
+
+    fun cau7(array: Array<Int>): Array<Int> {
+        for (i in 0 until array.size - 1) {
+            for (j in i until array.size) {
+                if (array[i] > array[j]) {
+                    var temp = array[i]
+                    array[i] = array[j]
+                    array[j] = temp
+                }
+            }
+        }
+        return array
+    }
+
+    fun cau8(array: Array<Int>): Array<Int> {
+        for (i in 0 until array.size - 1) {
+            for (j in i until array.size) {
+                if (array[i] < array[j]) {
+                    var temp = array[i]
+                    array[i] = array[j]
+                    array[j] = temp
+                }
+            }
+        }
+        return array
+    }
+
+    fun cau9(array: Array<Int>, k: Int): Array<Int> {
+        if (k == 1) {
+            return cau7(array)
+        }
+        return cau8(array)
+    }
+
+    fun cau10(n: Int): Boolean {
+        var m = n
+        var reversedNumber: Int = 0
+        while (m > 0) {
+            var digit = m % 10
+            reversedNumber = reversedNumber * 10 + digit
+            m /= 10
+        }
+        if (reversedNumber == n)
+            return true
+        return false
+    }
+
+    fun cau11(n: Int): Boolean {
+        var count: Int = 0
+        for (i in 2..sqrt(n.toDouble()).roundToInt()) {
+            if (n % i == 0)
+                count++
+        }
+        if (count == 0)
+            return true
+        return false
+    }
+
+    fun cau12(array: Array<Int>): Pair<Pair<Int, Int>, Pair<Int, Int>> {
+        var max = array[0]
+        var min = array[0]
+        var max_odd = array[0]
+        var max_prime = 2
+        for (i in array.indices) {
+            if (array[i] >= max)
+                max = array[i]
+            if (array[i] <= min)
+                min = array[i]
+            if (array[i] % 2 != 0 && array[i] >= max_odd)
+                max_odd = array[i]
+            if (cau11(array[i]) && array[i] > max_prime)
+                max_prime = array[i]
+        }
+        var result: Pair<Pair<Int, Int>, Pair<Int, Int>> = Pair(Pair(max, min), Pair(max_odd, max_prime))
+        return result
+    }
 }
+
 
 fun main(args: Array<String>) {
 //    var stringExercise = StringExercise()
@@ -146,8 +260,78 @@ fun main(args: Array<String>) {
 //    println(stringExercise.randomString("Hoang Huu Giap"))
 
     var loopExercise = LoopExercise()
-    loopExercise.outputArray(loopExercise.reverseArray(arrayOf(1, 2, 3, 4, 5)))
-    loopExercise.outputTuple(loopExercise.gcdHandle(8))
-    loopExercise.outputTuple(loopExercise.cau3(101100))
+    var array_1 = arrayOf(1, 2, 3, 4, 5)
+    println("Cau 1: Truoc khi dao nguoc mang")
+    loopExercise.outputArray(array_1)
+    println("Sau khi dao nguoc mang: ")
+    loopExercise.outputArray(loopExercise.cau1(array_1))
+
+    println("Cau 2: Number n = 8")
+    var result_1 = loopExercise.cau2(8)
+    println("So luong uoc so = ${result_1.first}")
+    println("Tong cac uoc so = ${result_1.second}")
+
+    println("Cau 3: Number n = 101100")
+    var result_2 = loopExercise.cau3(101100)
+    println("So luong chu so = ${result_2.first}")
+    println("Tong cac chu so = ${result_2.second}")
+
+    println("Cau 4: Number n = 102223311")
+    var result_3 = loopExercise.cau4(102223311)
+    println("So luong chu so le = ${result_3.first}")
+    println("So luong chu so chan = ${result_3.second}")
+
+    println("Cau 5: Number n = 11")
+    var result_4 = loopExercise.cau5(11)
+    println("S = $result_4")
+
+    print("Cau 6: [")
+    var result_5 = loopExercise.cau6("nlhdung")
+    println(result_5.joinToString() + "]")
+
+    var array_2 = arrayOf(10, 9, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+    println("Cau 7: Truoc khi sap xep mang tang dan")
+    loopExercise.outputArray(array_2)
+    println("Sau khi sap xep mang tang dan: ")
+    loopExercise.outputArray(loopExercise.cau7(array_2))
+
+    var array_3 = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 11)
+    println("Cau 8: Truoc khi sap xep mang giam dan")
+    loopExercise.outputArray(array_3)
+    println("Sau khi sap xep mang giam dan: ")
+    loopExercise.outputArray(loopExercise.cau8(array_3))
+
+    var array_4 = arrayOf(0, 1, 9, 4, 3, 5, 2, 34, 56, 21, 432, 9, 10, 11)
+    println("Cau 9: Truoc khi sap xep")
+    loopExercise.outputArray(array_4)
+    println("Sau khi sap xep: ")
+    loopExercise.outputArray(loopExercise.cau9(array_4, 0))
+
+    print("Cau 10: ")
+    var n_1 = 121
+    var result_6 = loopExercise.cau10(n_1)
+    if (result_6) {
+        println("$n_1 la so doi xung")
+    } else {
+        println("$n_1 khong phai la so doi xung")
+    }
+
+    print("Cau 11: ")
+    var n_2 = 97
+    var result_7 = loopExercise.cau11(n_2)
+    if (result_7) {
+        println("$n_2 la so nguyen to")
+    } else {
+        println("$n_2 khong phai la so nguyen to")
+    }
+
+    var array_5 = arrayOf(10, 97, 11, 43, 22, 44, 97, 12, 4, 13)
+    println("Cau 12:")
+    loopExercise.outputArray(array_5)
+    var result_8 = loopExercise.cau12(array_5)
+    println("So lon nhat = ${result_8.first.first}")
+    println("So nho nhat = ${result_8.first.second}")
+    println("So le lon nhat = ${result_8.second.first}")
+    println("So nguyen to nhat = ${result_8.second.second}")
 
 }
