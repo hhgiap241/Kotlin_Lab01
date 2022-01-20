@@ -1,5 +1,4 @@
 import java.util.*
-import java.util.function.DoubleBinaryOperator
 import kotlin.collections.ArrayList
 import kotlin.math.pow
 import kotlin.math.roundToInt
@@ -84,6 +83,8 @@ class StringExercise {
     }
 }
 
+data class MultipleValue(var a: Int, var b: Int, var c: Int, var  d: Int)
+
 class LoopExercise {
     fun outputArray(array: Array<Int>) {
         print("[ ")
@@ -93,11 +94,6 @@ class LoopExercise {
         }
         print("]")
         println()
-    }
-
-    fun outputTuple(pair: Pair<Int, Int>) {
-        println("First: ${pair.first}")
-        println("Second: ${pair.second}")
     }
 
     fun cau1(array: Array<Int>): Array<Int> {
@@ -225,7 +221,7 @@ class LoopExercise {
         return false
     }
 
-    fun cau12(array: Array<Int>): Pair<Pair<Int, Int>, Pair<Int, Int>> {
+    fun cau12(array: Array<Int>): MultipleValue {
         var max = array[0]
         var min = array[0]
         var max_odd = array[0]
@@ -240,8 +236,8 @@ class LoopExercise {
             if (cau11(array[i]) && array[i] > max_prime)
                 max_prime = array[i]
         }
-        var result: Pair<Pair<Int, Int>, Pair<Int, Int>> = Pair(Pair(max, min), Pair(max_odd, max_prime))
-        return result
+//        var result: Pair<Pair<Int, Int>, Pair<Int, Int>> = Pair(Pair(max, min), Pair(max_odd, max_prime))
+        return MultipleValue(max, min, max_odd, max_prime)
     }
 }
 
@@ -324,18 +320,20 @@ fun main(args: Array<String>) {
     println("======================== Bai tap For va Array ========================")
     var loopExercise = LoopExercise()
     var array_1 = arrayOf(1, 2, 3, 4, 5)
-    println("Cau 1: Truoc khi dao nguoc mang")
+    println("Cau 1: Truoc khi dao nguoc mang:")
     loopExercise.outputArray(array_1)
     println("Sau khi dao nguoc mang: ")
     loopExercise.outputArray(loopExercise.cau1(array_1))
 
-    println("Cau 2: Number n = 8")
-    var result_1 = loopExercise.cau2(8)
+    var n =  (0..1000).random()
+    println("Cau 2: Number n = $n")
+    var result_1 = loopExercise.cau2(n)
     println("So luong uoc so = ${result_1.first}")
     println("Tong cac uoc so = ${result_1.second}")
 
-    println("Cau 3: Number n = 101100")
-    var result_2 = loopExercise.cau3(101100)
+    n =  (10000..100000).random()
+    println("Cau 3: Number n = $n")
+    var result_2 = loopExercise.cau3(n)
     println("So luong chu so = ${result_2.first}")
     println("Tong cac chu so = ${result_2.second}")
 
@@ -344,8 +342,9 @@ fun main(args: Array<String>) {
     println("So luong chu so le = ${result_3.first}")
     println("So luong chu so chan = ${result_3.second}")
 
-    println("Cau 5: Number n = 11")
-    var result_4 = loopExercise.cau5(11)
+    n = (0..500).random()
+    println("Cau 5: Number n = $n")
+    var result_4 = loopExercise.cau5(n)
     println("S = $result_4")
 
     print("Cau 6: [")
@@ -365,54 +364,60 @@ fun main(args: Array<String>) {
     loopExercise.outputArray(loopExercise.cau8(array_3))
 
     var array_4 = arrayOf(0, 1, 9, 4, 3, 5, 2, 34, 56, 21, 432, 9, 10, 11)
+    var k = (0..1).random()
     println("Cau 9: Truoc khi sap xep")
     loopExercise.outputArray(array_4)
     println("Sau khi sap xep: ")
-    loopExercise.outputArray(loopExercise.cau9(array_4, 0))
+    loopExercise.outputArray(loopExercise.cau9(array_4, k))
 
     print("Cau 10: ")
-    var n_1 = 121
-    var result_6 = loopExercise.cau10(n_1)
+    n = (1000..1000000).random()
+    var result_6 = loopExercise.cau10(n)
     if (result_6) {
-        println("$n_1 la so doi xung")
+        println("$n la so doi xung")
     } else {
-        println("$n_1 khong phai la so doi xung")
+        println("$n khong phai la so doi xung")
     }
 
     print("Cau 11: ")
-    var n_2 = 97
-    var result_7 = loopExercise.cau11(n_2)
+    n = (1..200).random()
+    var result_7 = loopExercise.cau11(n)
     if (result_7) {
-        println("$n_2 la so nguyen to")
+        println("$n la so nguyen to")
     } else {
-        println("$n_2 khong phai la so nguyen to")
+        println("$n khong phai la so nguyen to")
     }
 
     var array_5 = arrayOf(10, 97, 11, 43, 22, 44, 97, 12, 4, 13)
     println("Cau 12:")
     loopExercise.outputArray(array_5)
     var result_8 = loopExercise.cau12(array_5)
-    println("So lon nhat = ${result_8.first.first}")
-    println("So nho nhat = ${result_8.first.second}")
-    println("So le lon nhat = ${result_8.second.first}")
-    println("So nguyen to nhat = ${result_8.second.second}")
+    println("So lon nhat = ${result_8.a}")
+    println("So nho nhat = ${result_8.b}")
+    println("So le lon nhat = ${result_8.c}")
+    println("So nguyen to nhat = ${result_8.d}")
     println("======================================================================")
 
     println("======================== Bai tap khac ========================")
     var otherExercise = OtherExercise()
-    var km = 130
+    var km = (1..500).random()
     print("Cau 1: So tien taxi cho ${km}km = ")
     println(otherExercise.cau1(km))
 
-    print("Cau 2: Phi mua sach = ")
-    println(otherExercise.cau2(25000, 12, true))
 
-    print("Cau 3: 50USD to VND = ")
-    println(otherExercise.cau3(50, true))
-    print("Cau 3: 500000VND to USD = ")
-    println(otherExercise.cau3(500000, false))
+    var dongia = (10000..100000).random()
+    var soluong = (1..50).random()
+    print("Cau 2: Phi mua $soluong cuon sach voi don gia = ${dongia} VND/cuon = ")
+    println(otherExercise.cau2(dongia, soluong, true))
 
-    print("Cau 4: Number N = 10 => k = ")
+    var usd = (1..500).random()
+    println("Cau 3a: ${usd} USD = ${otherExercise.cau3(50, true)} VND")
+
+    var vnd = (10000..1000000).random()
+    println("Cau 3b: ${vnd} VND = ${otherExercise.cau3(500000, false)} USD")
+
+    var N = (1..1000).random()
+    print("Cau 4: Number N = $N => k = ")
     println(otherExercise.cau4(10))
     println("======================================================================")
 }
